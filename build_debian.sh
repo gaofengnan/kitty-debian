@@ -1,14 +1,14 @@
 #!/bin/bash
 # Build the kitty binary packages (.deb), one set for every suite. Nothing is
 # compiled (upstream's bundle is repackaged), so the per-suite builds differed
-# only in their ~<suite> version suffix. The fixed ~griffo keeps it below the
+# only in their ~<suite> version suffix. The fixed ~gaofn keeps it below the
 # distro's own build of the same version.
 #
 # Produces, in ./out :
-#   kitty_<ver>-<build>~griffo_<arch>.deb            (amd64, arm64)
-#   kitty-terminfo_<ver>-<build>~griffo_all.deb
-#   kitty-shell-integration_<ver>-<build>~griffo_all.deb
-#   kitty-doc_<ver>-<build>~griffo_all.deb
+#   kitty_<ver>-<build>~gaofn_<arch>.deb            (amd64, arm64)
+#   kitty-terminfo_<ver>-<build>~gaofn_all.deb
+#   kitty-shell-integration_<ver>-<build>~gaofn_all.deb
+#   kitty-doc_<ver>-<build>~gaofn_all.deb
 #
 # The arch:all packages are built once, by the first architecture of the run.
 # Set SKIP_ARCH_ALL=1 to never build them (CI does this for the arm64 job,
@@ -26,7 +26,7 @@ if [ -z "$VERSION" ] || [ -z "$BUILD" ]; then
     exit 1
 fi
 
-FULL_VERSION="${VERSION}-${BUILD}~griffo"
+FULL_VERSION="${VERSION}-${BUILD}~gaofn"
 
 case "$ARCH" in
     all)   ARCHES=("amd64" "arm64") ;;
@@ -64,7 +64,7 @@ kitty (${FULL_VERSION}) stable; urgency=medium
 
   * New upstream release ${VERSION}.
 
- -- Dario Griffo <dariogriffo@gmail.com>  $(date -R)
+ -- Fengnan Gao <gao.fengnan@gmail.com>  $(date -R)
 EOC
 
     docker build -t "kitty-${arch}" \

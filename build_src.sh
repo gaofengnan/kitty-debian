@@ -1,6 +1,6 @@
 #!/bin/bash
 # Build the *source* package (.dsc + .orig.tar.gz + .debian.tar.xz), one for
-# every suite, for upload to deb.griffo.io. The upstream kitty source
+# every suite, for upload to deb.gaofn.xyz. The upstream kitty source
 # archive is used as the .orig tarball; the shipped payload is upstream's
 # prebuilt bundle, fetched by debian/rules at build time.
 #
@@ -28,7 +28,7 @@ BUILD_DIR="${PACKAGE_NAME}-${VERSION}"
 # archive download is byte-identical next time. Reuse the earlier release's copy.
 if [ ! -f "$ORIG_TARBALL" ]; then
     for ((b = BUILD - 1; b >= 1; b--)); do
-        if wget -q "https://github.com/dariogriffo/kitty-debian/releases/download/${VERSION}%2B${b}/${ORIG_TARBALL}" -O "$ORIG_TARBALL"; then
+        if wget -q "https://github.com/gaofengnan/kitty-debian/releases/download/${VERSION}%2B${b}/${ORIG_TARBALL}" -O "$ORIG_TARBALL"; then
             echo "  Reusing $ORIG_TARBALL from release ${VERSION}+${b}"
             break
         fi
@@ -46,7 +46,7 @@ else
 fi
 
 build_source_package() {
-    local FULL_VERSION="${VERSION}-${BUILD}~griffo"
+    local FULL_VERSION="${VERSION}-${BUILD}~gaofn"
     echo "  Building source package ${FULL_VERSION}..."
 
     rm -rf "$BUILD_DIR"
@@ -58,7 +58,7 @@ kitty (${FULL_VERSION}) stable; urgency=medium
 
   * New upstream release ${VERSION}.
 
- -- Dario Griffo <dariogriffo@gmail.com>  $(date -R)
+ -- Fengnan Gao <gao.fengnan@gmail.com>  $(date -R)
 EOC
 
     dpkg-source -b "$BUILD_DIR"

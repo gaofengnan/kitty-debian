@@ -1,14 +1,16 @@
-![GitHub Release](https://img.shields.io/github/v/release/dariogriffo/kitty-debian)
-![GitHub Release Date](https://img.shields.io/github/release-date/dariogriffo/kitty-debian)
+![GitHub Release](https://img.shields.io/github/v/release/gaofengnan/kitty-debian)
+![GitHub Release Date](https://img.shields.io/github/release-date/gaofengnan/kitty-debian)
 
 <img src="kitty.png" alt="kitty" width="96" align="right">
 
 # kitty for Debian and Ubuntu
 
+> Fork of [dariogriffo/kitty-debian](https://github.com/dariogriffo/kitty-debian) (MIT); the original packaging is by Dario Griffo. Served at [deb.gaofn.xyz](https://deb.gaofn.xyz) for Debian 12 (bookworm) and 13 (trixie).
+
 This repository contains build scripts that produce **unofficial** Debian and
 Ubuntu packages (`.deb`) of the latest [kitty](https://github.com/kovidgoyal/kitty)
 release, the fast, feature-rich, GPU based terminal emulator by Kovid Goyal,
-hosted at [deb.griffo.io](https://deb.griffo.io).
+hosted at [deb.gaofn.xyz](https://deb.gaofn.xyz).
 
 The packages repackage the **official upstream prebuilt bundle**
 (`kitty-<version>-x86_64.txz` / `kitty-<version>-arm64.txz`). Nothing is rebuilt
@@ -48,8 +50,9 @@ libxcursor, libdbus, libfontconfig, libgl and libegl, plus glibc 2.35 or newer.
 
 ```sh
 sudo install -d -m 0755 /etc/apt/keyrings
-curl -fsSL https://deb.griffo.io/EA0F721D231FDD3A0A17B9AC7808B4DD62C41256.asc | sudo gpg --dearmor --yes -o /etc/apt/keyrings/deb.griffo.io.gpg
-echo "deb [signed-by=/etc/apt/keyrings/deb.griffo.io.gpg] https://deb.griffo.io/apt $(lsb_release -sc 2>/dev/null) main" | sudo tee /etc/apt/sources.list.d/deb.griffo.io.list
+sudo curl -fsSL https://deb.gaofn.xyz/deb.gaofn.xyz.gpg -o /etc/apt/keyrings/deb.gaofn.xyz.gpg
+sudo curl -fsSL https://deb.gaofn.xyz/deb.gaofn.xyz.sources -o /etc/apt/sources.list.d/deb.gaofn.xyz.sources
+# Debian 12 (bookworm): fetch deb.gaofn.xyz-bookworm.sources instead
 sudo apt update
 sudo apt install kitty
 ```
@@ -58,9 +61,9 @@ To make sure apt keeps preferring this repository over the distribution's own
 kitty packages, pin it:
 
 ```sh
-sudo tee /etc/apt/preferences.d/deb.griffo.io-kitty > /dev/null << 'EOT'
+sudo tee /etc/apt/preferences.d/deb.gaofn.xyz-kitty > /dev/null << 'EOT'
 Package: kitty kitty-terminfo kitty-shell-integration kitty-doc
-Pin: origin deb.griffo.io
+Pin: origin deb.gaofn.xyz
 Pin-Priority: 1001
 EOT
 ```
@@ -68,7 +71,7 @@ EOT
 ### Manual installation
 
 1. Download the `.deb` files for your suite and architecture from the
-   [Releases](https://github.com/dariogriffo/kitty-debian/releases) page
+   [Releases](https://github.com/gaofengnan/kitty-debian/releases) page
    (`kitty-terminfo`, `kitty-shell-integration` and `kitty`, optionally
    `kitty-doc`).
 2. Install them:
